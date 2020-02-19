@@ -9,7 +9,8 @@ RUN apt-get update \
 COPY . /app
 WORKDIR /app
 
-RUN pip install --upgrade pip
-RUN pip install -r ./src/requirements/base.txt
+RUN pip install --upgrade pip && pip install pip-tools
+RUN pip-compile ./src/requirements/develop.in
+RUN pip install -r ./src/requirements/deveop.txt
 
 CMD [ "python",  "./src/app.py" ]
